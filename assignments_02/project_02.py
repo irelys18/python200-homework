@@ -68,7 +68,7 @@ plt.show()
 
 
 # Task 3
-# June, July, and August are considered summer mornths.
+# June, July, and August are considered summer months.
 df["is_summer"] = df["date"].dt.month.isin([6, 7, 8]).astype(int)
 
 print("\nSummer and non summer days:")
@@ -107,8 +107,6 @@ print("R2:", r2)
 # off by about 3.15°C, although individual errors can vary.
 
 # Task 5
-from sklearn.metrics import r2_score, root_mean_squared_error
-
 feature_cols = [
     "temperature_2m_min",
     "precipitation_sum",
@@ -138,10 +136,17 @@ print(f"Train R2: {train_r2:.4f}")
 print(f"Test R2: {test_r2:.4f}")
 print(f"Test RMSE: {test_rmse:.3f}°C")
 
-print(f"Baseline test R2: 0.8597")
-print(f"Change in test R2: {test_r2 - 0.8597000868:+04f}")
+print(f"Baseline test R2: {r2:.4f}")
+print(f"Change in test R2: {test_r2 - r2:+.4f}")
 
-print("\nFeature Coefficientes:")
+if test_r2 > r2:
+    print("The full model improved test R2 over the baseline.")
+elif test_r2 < r2:
+    print("The full model lowered test R2 compared to the baseline.")
+else:
+    print("The full model did not change test R2.")
+
+print("\nFeature Coefficients:")
 for name, coef in zip(feature_cols, model.coef_):
     print(f"{name:22s}: {coef:.3f}")
 
@@ -192,5 +197,3 @@ plt.show()
 # (+0.925), which is associated with higher predicted daily highs.
 # One surprising result is that test R² (0.8996) is higher than train R²
 # (0.8728), which can happen when the test set is easier to predict.
-# Plot observation: Predictions tend to be too high at some lower temperatures
-# and too low at several middle-to-high temperatures.

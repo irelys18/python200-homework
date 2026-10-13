@@ -77,26 +77,38 @@ print("Intercept:", model.intercept_)
 
 y_pred = model.predict(X_test)
 
-from sklearn.metrics import mean_squared_error
-
-print("RMSE:", np.sqrt(mean_squared_error(y_test, y_pred)))
-print("R²:", model.score(X_test, y_test))
+r2_single = model.score(X_test, y_test)
+print("Test R2 with temp_min:", r2_single)
 
 # For every 1-degree increase in the daily low, the predicted 
 # daily high increases by about .94 degrees.
 
 
-
 # Q4
 X_full = np.column_stack((temp_min, is_rainy))
-X_full_train, X_full_test, y_full_train, y_full_test = train_test_split(X_full, temp_max, test_size=0.2, random_state=42)
+
+X_full_train, X_full_test, y_full_train, y_full_test = train_test_split( 
+    X_full, temp_max, test_size=0.2, random_state=42 )
+
 model_full = LinearRegression()
 model_full.fit(X_full_train, y_full_train)
-model_full.score(X_full_test, y_full_test)
 
-print("Test R² with is_rainy:", model_full.score(X_full_test, y_full_test))
+r2_full = model_full.score(X_full_test, y_full_test)
+print("Test R² with temp_min and is_rainy:", r2_full)
+
 print("temp_min coefficient:", model_full.coef_[0])
 print("is_rainy coefficient:", model_full.coef_[1])
+
+print(f"Single-feature model R²: {r2_single:.4f}") 
+print(f"Two-feature model R²: {r2_full:.4f}") 
+print(f"Change in R²: {r2_full - r2_single:+.4f}") 
+
+if r2_full > r2_single: 
+    print("Adding is_rainy improved the model.") 
+elif r2_full < r2_single: 
+    print("Adding is_rainy lowered the model's R².") 
+else: 
+    print("Adding is_rainy did not change the model's R².")
 
 # Holding the daily low temperature constant, rainy days are predicted
 # to have a daily high about 2.92 degrees lower than non-rainy days.
