@@ -78,7 +78,10 @@ print("Intercept:", model.intercept_)
 y_pred = model.predict(X_test)
 
 r2_single = model.score(X_test, y_test)
+rmse_single = np.sqrt(mean_squared_error(y_test, y_pred))
+
 print("Test R2 with temp_min:", r2_single)
+print("Test RMSE with temp_min:", rmse_single)
 
 # For every 1-degree increase in the daily low, the predicted 
 # daily high increases by about .94 degrees.
