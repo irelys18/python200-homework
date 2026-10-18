@@ -115,7 +115,7 @@ print(classification_report(y_test, y_pred_knn))
 
 
 # KNN Q2
-k_values = [1, 3, 5, 7, 9]
+k_values = [1, 3, 5, 7, 9, 11, 15, 21]
 cv_results = {}
 
 for k in k_values:
