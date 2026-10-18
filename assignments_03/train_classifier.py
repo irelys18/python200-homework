@@ -42,6 +42,7 @@ params = {
     "timezone": "America/New_York",
 }
 
+# City: Apex, North Carolina, USA
 response = requests.get(url, params=params, timeout=30)
 response.raise_for_status()
 
