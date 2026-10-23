@@ -78,3 +78,23 @@ if __name__ == "__main__":
 
 # The guard prevents main() from running automatically when another
 # script imports this module to reuse a function or class.
+
+
+
+# Task 6: Reflection
+#
+# 1. Selecting the features in a fixed order prevents a bug where
+#    temperature values could be interpreted as wind speed or rain
+#    because the caller supplied the columns in a different order.
+#    This ensures the model receives the features in the order it
+#    expects.
+#
+# 2. Training a tiny model in a test fixture makes tests independent
+#    of the real saved model file. Tests are more reliable and
+#    repeatable because they create their own test data and do not
+#    depend on a separate file being present or updated.
+#
+# 3. WeatherClassifier is ready for a pipeline because it accepts
+#    batches of weather records and returns structured Prediction
+#    objects. Before production, I would add logging and error
+#    handling to help monitor failures and diagnose problems.
