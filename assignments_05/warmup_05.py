@@ -28,8 +28,8 @@ for temperature in temperatures:
         temperature=temperature
     )
 
-print(f"\nTemperature: {temperature}")
-print("AI Response:", response.choices[0].message.content)
+    print(f"\nTemperature: {temperature}")
+    print("AI Response:", response.choices[0].message.content)
 
 # Reflection:
 # At temperature 0, the response is generally more consistent
